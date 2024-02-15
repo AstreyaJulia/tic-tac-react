@@ -59,27 +59,37 @@ function App() {
     }
 
     const checkWinner = () => {
-        const indexes =  field.map((item, index)=> {
+        // получаем массив с индексами полей, в которых стоят элементы текущего пользователя
+        const indexes = field.map((item, index) => {
             if (item.toString() === player[currentPlayer].state) {
-              return index
+                return index
             }
-        }).filter((item)=> item !== undefined)
-
-        return winCombinations.filter((item)=>indexes.join('').toString().includes(item.join('').toString()))
+            // фильтруем от значений undefined
+        }).filter((item) => item !== undefined)
+// фильтруем массив из выигрышных комбинаций, соединяя каждый массив с индексами и текущую итерацию массива выигрышных
+// комбинаций в строки и проверяя, содержит ли первая строка вторую строку (проверять содержит ли массив все элементы второго массива сложнее, потому используем строки)
+        return winCombinations.filter((item) => indexes.join('').toString().includes(item.join('').toString()))
     }
 
-    const startGameHandler = () =>{
-      setNewGame(true);
-      setCurrentPlayer(0);
-      setField([0, 0, 0,
-          0, 0, 0,
-          0, 0, 0])
+    /** Ф-я начала новой игры*/
+    const startGameHandler = () => {
+        // устанавливаем флаг начала новой игры, для блокирвоки/разблокировки кнопок
+        setNewGame(true);
+        // устанавливаем ход игроку, чтобы первым ходил игрок
+        setCurrentPlayer(0);
+        // обнуляем игровое поле
+        setField([0, 0, 0,
+            0, 0, 0,
+            0, 0, 0])
     }
 
+    /** Функция хода
+     * @param position
+     */
     const makeTurn = (position) => {
         const turn = fieldElementChange(position);
 
-        // даем ход другому игроку
+        // даем ход другому игроку, если ф-я не вернула null
         if (turn !== null) {
             setCurrentPlayer(currentPlayer === 0 ? 1 : 0)
         }
@@ -88,7 +98,8 @@ function App() {
     }
 
     return (
-        <Field playerName={player[currentPlayer].name} field={field} newGame={newGame} startGame={()=>startGameHandler()}
+        <Field playerName={player[currentPlayer].name} field={field} newGame={newGame}
+               startGame={() => startGameHandler()}
                fieldElementChange={(position) => makeTurn(position)}/>
     )
 }

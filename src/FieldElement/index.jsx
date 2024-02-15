@@ -5,6 +5,7 @@ import PropTypes, {number, string} from "prop-types";
  * @param position - позиция в массиве [0, 1 ....]
  * @param state - состояние 0, 'х', 'o'
  * @param clickHandler - ф-я, срабатывающая при нажатии на элемент
+ * @param newGame - состояние включенной игры, элементы разблокируются
  * @returns {JSX.Element} - элемент
  * @constructor
  */
@@ -36,7 +37,8 @@ const FieldElement = ({position, state, clickHandler, newGame}) => {
 FieldElement.propTypes = {
     position: PropTypes.number.isRequired,
     state: PropTypes.oneOfType([number, string]).isRequired,
-    clickHandler: PropTypes.func.isRequired
+    clickHandler: PropTypes.func.isRequired,
+    newGame: PropTypes.bool.isRequired,
 }
 
 export default FieldElement

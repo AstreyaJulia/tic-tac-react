@@ -1,6 +1,15 @@
 import FieldElement from "../FieldElement/index.jsx";
 import PropTypes from "prop-types";
 
+/** Компонент, отрисовывающий поле
+ * @param field - массив игрового поля
+ * @param playerName - имя текущего игрока
+ * @param fieldElementChange - ф-я для передачи в родительский компонент индекса нажатого элемента
+ * @param newGame - состояние включенной игры, блокирует кнопку начала новой игры
+ * @param startGame - ф-я для передачи в родительский компонент события о начале новой игры
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Field = ({field, playerName, fieldElementChange, newGame, startGame}) => {
     return (
         <>
@@ -16,7 +25,9 @@ const Field = ({field, playerName, fieldElementChange, newGame, startGame}) => {
 Field.propTypes = {
     field: PropTypes.array.isRequired,
     playerName: PropTypes.string.isRequired,
-    fieldElementChange: PropTypes.func.isRequired
+    fieldElementChange: PropTypes.func.isRequired,
+    newGame: PropTypes.bool.isRequired,
+    startGame: PropTypes.func.isRequired
 }
 
 export default Field
